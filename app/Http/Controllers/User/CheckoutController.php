@@ -24,17 +24,16 @@ class CheckoutController extends Controller
 
         $mergedData = [];
 
-        // Loop through the "carts" array and merge with "products" data
         foreach ($carts as $cartItem) {
             foreach ($products as $product) {
                 if ($cartItem["product_id"] == $product["id"]) {
-                    // Merge the cart item with product data
+
                     $mergedData[] = array_merge($cartItem, ["title" => $product["title"], 'price' => $product['price']]);
                 }
             }
         }
 
-        //stripe payment
+
         $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
         $lineItems = [];
         foreach ($mergedData as $item) {
@@ -84,19 +83,19 @@ class CheckoutController extends Controller
             $order->total_price = $request->total;
             $order->session_id = $checkout_session->id;
             $order->created_by = $user->id;
-            // If a main address with isMain = 1 exists, set its id as customer_address_id
+
             $order->user_address_id = $mainAddress->id;
             $order->save();
             $cartItems = CartItem::where(['user_id' => $user->id])->get();
             foreach ($cartItems as $cartItem) {
                 OrderItem::create([
-                    'order_id' => $order->id, // Assuming you have an 'id' field in your orders table
+                    'order_id' => $order->id,
                     'product_id' => $cartItem->product_id,
                     'quantity' => $cartItem->quantity,
-                    'unit_price' => $cartItem->product->price, // You may adjust this depending on your logic
+                    'unit_price' => $cartItem->product->price,
                 ]);
                 $cartItem->delete();
-                //remove cart items from cookies
+
                 $cartItems = Cart::getCookieCartItems();
                 foreach ($cartItems as $item) {
                     unset($item);
@@ -112,7 +111,7 @@ class CheckoutController extends Controller
                 'type' => 'stripe',
                 'created_by' => $user->id,
                 'updated_by' => $user->id,
-                // 'session_id' => $session->id
+
             ];
 
             Payment::create($paymentData);

@@ -32,7 +32,7 @@ const sortOptions = [
 const filterPrices = useForm({
     prices: [0, 100000]
 })
-//method for price filter
+
 const priceFilter = () => {
     filterPrices.transform((data) => ({
         ...data,
@@ -54,7 +54,7 @@ const props = defineProps({
     categories: Array
 })
 
-//filter brands and categories
+//filrare dupa brand si categorie
 const selectedBrands = ref([])
 const selectedCategories = ref([])
 
@@ -80,7 +80,7 @@ function updateFilteredProducts() {
     <UserLayouts>
         <div class="bg-white">
             <div>
-                <!-- Mobile filter dialog -->
+
                 <TransitionRoot as="template" :show="mobileFiltersOpen">
                     <Dialog as="div" class="relative z-40 lg:hidden" @close="mobileFiltersOpen = false">
                         <TransitionChild as="template" enter="transition-opacity ease-linear duration-300"
@@ -107,7 +107,7 @@ function updateFilteredProducts() {
                                         </button>
                                     </div>
 
-                                    <!-- Filters -->
+
                                     <form class="mt-4 border-t border-gray-200">
                                         <h3 class="sr-only">Categories</h3>
                                         <ul role="list" class="px-2 py-3 font-medium text-gray-900">
@@ -159,10 +159,10 @@ function updateFilteredProducts() {
                         <h2 id="products-heading" class="sr-only">Products</h2>
 
                         <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                            <!-- Filters -->
+
                             <form class="hidden lg:block">
                                 <h3 class="sr-only">Prices</h3>
-                                <!-- price filter -->
+
                                 <div class="flex items-center justify-between space-x-3">
                                     <div class="basis-1/3">
                                         <label for="filters-price-from"
@@ -192,7 +192,7 @@ function updateFilteredProducts() {
                                 </div>
 
 
-                                <!-- end -->
+
 
                                 <Disclosure as="div" class="border-b border-gray-200 py-6" v-slot="{ open }">
                                     <h3 class="-my-3 flow-root">
@@ -219,7 +219,7 @@ function updateFilteredProducts() {
                                 </Disclosure>
 
 
-                                <!-- category filter -->
+                                <!-- filtru categorie -->
 
                                 <Disclosure as="div" class="border-b border-gray-200 py-6" v-slot="{ open }">
                                     <h3 class="-my-3 flow-root">
@@ -246,12 +246,12 @@ function updateFilteredProducts() {
                                     </DisclosurePanel>
                                 </Disclosure>
 
-                                <!-- end -->
+
                             </form>
 
-                            <!-- Product grid -->
+                            <!-- lista produse-->
                             <div class="lg:col-span-3">
-                                <!-- Your content -->
+
                                 <Products :products="products.data"></Products>
                             </div>
                         </div>

@@ -16,7 +16,7 @@ const isAddProduct = ref(false);
 const editMode = ref(false);
 const dialogVisible = ref(false)
 
-//upload mulitpel images
+//incarcare imagini
 const productImages = ref([])
 const dialogImageUrl = ref('')
 const handleFileChange = (file) => {
@@ -32,7 +32,7 @@ const handlePictureCardPreview = (file) => {
 const handleRemove = (file) => {
     console.log(file)
 }
-//prodct from data
+//formular produse
 const id = ref('');
 const title = ref('')
 const price = ref('')
@@ -43,7 +43,7 @@ const published = ref('')
 const category_id = ref('')
 const brand_id = ref('')
 const inStock = ref('')
-//end
+
 
 const openEditMode = (product, index) => {
 
@@ -65,7 +65,7 @@ const openEditMode = (product, index) => {
 }
 
 
-//open add modal
+//deschidere form adaugare
 const openAddMode = () => {
     isAddProduct.value = true
     dialogVisible.value = true
@@ -73,7 +73,7 @@ const openAddMode = () => {
 
 }
 
-// add product method
+// metod de adaugare produs
 const AddProduct = async () => {
     const formData = new FormData();
     formData.append('title', title.value);
@@ -102,7 +102,7 @@ const AddProduct = async () => {
 
 }
 
-//rest data after added
+//resetarea datelor dupa trimiterea formului
 const FormReset = () => {
     id.value = '';
     title.value = '';
@@ -117,7 +117,7 @@ const FormReset = () => {
 };
 
 
-//update product method
+//actualizare produs
 const updateProduct = async () => {
     const formData = new FormData();
     formData.append('title', title.value);
@@ -127,7 +127,7 @@ const updateProduct = async () => {
     formData.append('category_id', category_id.value);
     formData.append('brand_id', brand_id.value);
     formData.append("_method", 'PUT');
-    // Append product images to the FormData
+
     for (const image of productImages.value) {
         formData.append('product_images[]', image.raw);
     }
@@ -144,7 +144,7 @@ const updateProduct = async () => {
     }
 }
 
-//delete product method
+//stergere produs
     const deleteProduct = (product, index) => {
             try {
                 router.delete('products/destory/' + product.id, {
@@ -233,7 +233,7 @@ const deleteImage = async (pimage, index) => {
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descriere</label>
                         <textarea id="message" rows="4" v-model="description"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Leave a comment..."></textarea>
+                            placeholder="Adăugați descrierea..."></textarea>
 
                     </div>
 
